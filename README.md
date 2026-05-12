@@ -122,8 +122,7 @@ The workflow currently runs the following analysis sequence:
 3. **Aggregate Analysis**
    - Evaluates group-level differences across valid categorical columns and numeric metrics.
    - Stores full aggregate summaries in workflow state while showing a compact terminal summary.
-   - Highlights top aggregate deviations for LLM observation extraction.
-
+   - Stores both full aggregate summaries and compact high-level aggregate deviations to support synthesized LLM-derived insights.
 4. **Relationship Analysis**
    - Calculates numeric correlations.
    - Filters weak correlations.
@@ -145,6 +144,7 @@ Running `example_usage.py` will:
 ### Workflow Graph
 
 ![Workflow Graph](images/graph.png)
+
 
 ### Example Workflow Analysis
 
