@@ -25,7 +25,9 @@ Extract concise, actionable observations from a single analysis step.
    expected structural relationships and analytically surprising
    findings.
 8. High correlations may still be important even when they are expected.
-9. Do not make causal claims from correlations.
+9. Do not interpret correlations causally. Avoid language such as "leads to", "drives", 
+   "results in", "contributes to", or "causes". Instead describe correlations as associations,
+   co-movements, or observed relationships without implying directional effects.
 10. Keep observations concise and directly tied to the provided
    results.
 
