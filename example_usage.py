@@ -60,12 +60,19 @@ for step_key, step_title in analysis_steps:
     # Show results
     if step_key in results:
         step_results = results[step_key]
-        for key, value in step_results.items():
-            if isinstance(value, dict) and len(str(value)) > 200:
-                print(f"{key}: {type(value).__name__} with {len(value)} items")
-            else:
+        # show compact aggregate summary only
+        if step_key == "compute_aggregates":
+            display_summary = step_results.get("display_summary", step_results)
+            for key, value in display_summary.items():
                 print(f"{key}: {value}")
-    
+        # default printing behavior for all other nodes
+        else:
+            for key, value in step_results.items():
+                if isinstance(value, dict) and len(str(value)) > 200:
+                    print(f"{key}: {type(value).__name__} with {len(value)} items")
+                else:
+                    print(f"{key}: {value}")
+        
     # Show observations
     print(f"\nObservations:")
     if step_key in observations and observations[step_key]:

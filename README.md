@@ -108,15 +108,67 @@ poetry run python example_usage.py
 
 This runs a full analysis on the sample dataset and prints the results for each step.
 
+## Analysis Steps
+
+The workflow currently runs the following analysis sequence:
+
+1. **Dataset Profile**
+   - Captures dataset shape, column names, data types, numeric summaries, and categorical summaries.
+
+2. **Missingness Analysis**
+   - Calculates missing counts and missing percentages.
+   - Flags columns with high missingness.
+
+3. **Aggregate Analysis**
+   - Evaluates group-level differences across valid categorical columns and numeric metrics.
+   - Stores full aggregate summaries in workflow state while showing a compact terminal summary.
+   - Highlights top aggregate deviations for LLM observation extraction.
+
+4. **Relationship Analysis**
+   - Calculates numeric correlations.
+   - Filters weak correlations.
+   - Separates strongest positive and negative relationships.
+
+After each step, the LLM extracts concise observations. The final synthesis combines those observations into a summary and recommendations.
+
+## Output
+
+Running `example_usage.py` will:
+
+- print each analysis step
+- print LLM-generated observations after each step
+- generate a final summary and recommendations
+- save a LangGraph diagram as `graph.png`
+
+## Example Output
+
+### Workflow Graph
+
+![Workflow Graph](images/graph.png)
+
+### Example Workflow Analysis
+
+![Workflow Output](images/workflow_analysis_output.png)
+
+## Future Improvements
+
+- Add semantic filtering for likely "identifier columns" (example customer_id) before aggregate and correlation analysis.
+- Improve filtering of low-information, sparse, and identifier-like features.
+- Improve detection of structurally expected vs analytically meaningful relationships.
+- Extend aggregate analysis with more robust outlier handling and statistical summaries.
+- Improve domain-aware interpretation of EDA findings.
+
+Tested on additional real-world datasets including housing data, which identified the need for additional improvements around feature filtering and relationship interpretation.
+
 ## Project Structure
 
 ```
-eda-agent/
+eda-workflow/
 ├── data/
 │   └── cafe_sales.csv             # Sample dataset
 ├── eda_workflow/
 │   ├── __init__.py
-│   ├── eda_workflow.py             # Main workflow class and graph
+│   ├── eda_workflow.py            # Main workflow class and graph
 │   └── prompts/                   # LLM prompt templates
 │       ├── extract_observations_system.txt
 │       ├── extract_observations_human.txt
